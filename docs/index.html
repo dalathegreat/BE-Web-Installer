@@ -88,7 +88,7 @@ select {
 var images_by_version = {};
 
 var sel = document.getElementById('release');
-fetch('https://api.github.com/repos/jonny5532/BE-Web-Installer/git/trees/main?recursive=1').then(r=>r.json()).then(r=>{
+fetch('https://api.github.com/repos/dalathegreat/BE-Web-Installer/git/trees/main?recursive=1').then(r=>r.json()).then(r=>{
     r.tree.forEach(t=>{
         var bits = t.path.split('/');
         if(bits.length==3 && bits[0]=="images") {
@@ -141,9 +141,9 @@ sel.addEventListener('change', function() {
 var img = document.getElementById('image');
 img.addEventListener('change', function() {
     // var script = document.createElement("script");
-    // script.src = "https://github.com/jonny5532/Battery-Emulator/releases/download/v0.0.2test/binary.js?" + (new Date()).getTime();
+    // script.src = "https://github.com/dalathegreat/Battery-Emulator/releases/download/v0.0.2test/binary.js?" + (new Date()).getTime();
     // document.body.appendChild(script);
-    var uri = "https://raw.githubusercontent.com/jonny5532/BE-Web-Installer/refs/heads/main/" + img.value;
+    var uri = "https://raw.githubusercontent.com/dalathegreat/BE-Web-Installer/refs/heads/main/" + img.value;
 
     const manifest = {
         "name": "Battery Emulator",
