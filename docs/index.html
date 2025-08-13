@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<style>
+html, body, * {
+    font: 18px sans-serif;
+}
+
+body {
+    padding: 1rem;
+}
+
+h1 {
+    font-size: 2em;
+    margin: 0.5rem 0 2rem;
+}
+
+h2 { 
+    font-size: 1.3rem;
+    margin: 1rem 0 1.5rem;
+}
+
+p {
+    margin: 0 0 1.5rem;
+}
+
+p + h2 {
+    margin-top: 2.5rem;
+}
+
+select {
+    display: block;
+    min-width: 30rem;
+    padding: 0.4rem;
+}
+
+</style>
+<body>
+
+<script
+  type="module"
+  src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js?module"
+></script>
+
+<h1>Battery Emulator Web Installer</h1>
+
+<p>This will install a factory image onto your device, over USB, through the web browser.</p>
+
+<h2>Step 1: Attach your device</h2>
+
+<p>Plug in your Lilygo T-CAN485, Stark CMR or ESP32 dev board to your computer using a USB cable.</p>
+
+<h2>Step 2: Hold down BOOT (optional)</h2>
+
+<p>Some devices require you to hold down the BOOT button during the following steps. If your device has no BOOT button, connect GND and pin 0 together instead.</p>
+
+<p>You can release BOOT once the device has started erasing/installing.</p>
+
+<h2>Step 3: Select an image to install</h2>
+
+<p>Choose a release: <select id="release"><option value="">Choose...</option></select></p>
+  
+<p>Choose an image: <select id="image"><option></option></select></p>
+
+<div id="install" style="display: none">
+
+<h2>Step 4: Install!</h2>
+
+<p>Click the button below, and find your device's serial interface. Select 'Erase device' when asked.</p>
+
+<esp-web-install-button
+></esp-web-install-button>
+
+<h2>Step 5: Configure WiFi</h2>
+
+<p>Your device will boot as an access point with a "BatteryEmulator..." SSID.</p>
+<ol>
+    <li>Connect to it over WiFi, password: 123456789</li>
+    <li>Go to http://192.168.4.1/settings in your web browser</li>
+    <li>Update with your WiFi SSID and password</li>
+    <li>Go back to the main page and Reboot</li>
+    <li>Access it over your local WiFi network IP</li>
+    <li>(Optionally) go back to settings and disable the AP mode</li>
+</ol>
+
+</div>
+
+<script>
+var images_by_version = {};
+
+var sel = document.getElementById('release');
+fetch('https://api.github.com/repos/jonny5532/BE-Web-Installer/git/trees/main?recursive=1').then(r=>r.json()).then(r=>{
+    r.tree.forEach(t=>{
+        var bits = t.path.split('/');
+        if(bits.length==3 && bits[0]=="images") {
+            if(!images_by_version[bits[1]]) {
+                images_by_version[bits[1]] = [];
+            }
+            images_by_version[bits[1]].push({
+                'name': bits[2],
+                'path': t.path,
+            });
+        }
+    });
+    console.log(images_by_version);
+
+    sel.innerHTML = '';
+    // add empty option
+    var opt = document.createElement('option');
+    opt.value = '';
+    opt.textContent = 'Select...';
+    sel.appendChild(opt);
+
+    Object.keys(images_by_version).sort().forEach(function(version) {
+        var opt = document.createElement('option');
+        opt.value = version;
+        opt.textContent = version;
+        sel.appendChild(opt);
+    });
+});
+
+sel.addEventListener('change', function() {
+    var files = images_by_version[sel.value];
+    if(!files) return;
+
+    var image_sel = document.getElementById('image');
+    image_sel.innerHTML = '';
+    // add empty option
+    var opt = document.createElement('option');
+    opt.value = '';
+    opt.textContent = 'Select...';
+    image_sel.appendChild(opt);
+    files.forEach(function(file) {
+        var opt = document.createElement('option');
+        opt.value = file.path;
+        opt.textContent = file.name;
+        image_sel.appendChild(opt);
+    });
+});
+
+    
+var img = document.getElementById('image');
+img.addEventListener('change', function() {
+    // var script = document.createElement("script");
+    // script.src = "https://github.com/jonny5532/Battery-Emulator/releases/download/v0.0.2test/binary.js?" + (new Date()).getTime();
+    // document.body.appendChild(script);
+    var uri = "https://raw.githubusercontent.com/jonny5532/BE-Web-Installer/refs/heads/main/" + img.value;
+
+    const manifest = {
+        "name": "Battery Emulator",
+        "version": sel.value,
+        "new_install_prompt_erase": true,
+        "builds": [
+            {
+                "chipFamily": "ESP32",
+                "improv": false,
+                "parts": [
+                    { "path": uri, "offset": 0}
+                ]
+            }
+        ]
+    };
+    const json = JSON.stringify(manifest);
+    console.log(json);
+    const blob = new Blob([json], {type: "application/json"});
+    document.querySelector("esp-web-install-button").manifest = URL.createObjectURL(blob);
+    document.getElementById("install").style.display = 'block';
+});
+  
+</script>
+  
+</body>
+</html>
