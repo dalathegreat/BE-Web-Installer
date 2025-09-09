@@ -110,7 +110,7 @@ fetch('https://api.github.com/repos/dalathegreat/BE-Web-Installer/git/trees/main
     opt.textContent = 'Select...';
     sel.appendChild(opt);
 
-    Object.keys(images_by_version).sort().forEach(function(version) {
+    Object.keys(images_by_version).sort().reverse().forEach(function(version) {
         var opt = document.createElement('option');
         opt.value = version;
         opt.textContent = version;
