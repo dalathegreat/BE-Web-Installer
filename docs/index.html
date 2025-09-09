@@ -145,13 +145,15 @@ img.addEventListener('change', function() {
     // document.body.appendChild(script);
     var uri = "https://raw.githubusercontent.com/dalathegreat/BE-Web-Installer/refs/heads/main/" + img.value;
 
+    const chipFamily = uri.indexOf("2CAN") >= -1 ? "ESP32-S3" : "ESP32";
+
     const manifest = {
         "name": "Battery Emulator",
         "version": sel.value,
         "new_install_prompt_erase": true,
         "builds": [
             {
-                "chipFamily": "ESP32",
+                "chipFamily": chipFamily,
                 "improv": false,
                 "parts": [
                     { "path": uri, "offset": 0}
