@@ -91,7 +91,7 @@ var sel = document.getElementById('release');
 fetch('https://api.github.com/repos/dalathegreat/BE-Web-Installer/git/trees/main?recursive=1').then(r=>r.json()).then(r=>{
     r.tree.forEach(t=>{
         var bits = t.path.split('/');
-        if(bits.length==3 && bits[0]=="images") {
+        if(bits.length==3 && bits[0]=="images" && bits[2].endsWith('.factory.bin')) {
             if(!images_by_version[bits[1]]) {
                 images_by_version[bits[1]] = [];
             }
