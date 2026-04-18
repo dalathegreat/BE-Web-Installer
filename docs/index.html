@@ -111,8 +111,8 @@ fetch('https://api.github.com/repos/dalathegreat/BE-Web-Installer/git/trees/main
     sel.appendChild(opt);
 
     Object.keys(images_by_version).sort((a, b) => {
-        const pa = a.split('.').map(Number);
-        const pb = b.split('.').map(Number);
+        const pa = a.replace(/^v/, '').split('.').map(Number);
+        const pb = b.replace(/^v/, '').split('.').map(Number);
         for (let i = 0; i < Math.max(pa.length, pb.length); i++) {
             const diff = (pb[i] || 0) - (pa[i] || 0);
             if (diff !== 0) return diff;
