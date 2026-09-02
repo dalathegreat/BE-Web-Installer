@@ -4,6 +4,10 @@ Install Battery Emulator:
 
 https://dalathegreat.github.io/BE-Web-Installer/
 
-The main Battery Emulator repo:
+Read documentation:
+
+https://dalathegreat.github.io/Battery-Emulator-Wiki/
+
+The main Battery Emulator source code repo:
 
 https://github.com/dalathegreat/Battery-Emulator/
