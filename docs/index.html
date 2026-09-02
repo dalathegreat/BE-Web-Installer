@@ -33,6 +33,17 @@ select {
     padding: 0.4rem;
 }
 
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #1e2129;
+    color: #bec1c6;
+  }
+
+  a {
+    color: #71c174;
+  }
+}
+    
 </style>
 <body>
 
@@ -43,19 +54,17 @@ select {
 
 <h1>Battery Emulator Web Installer</h1>
 
-<p>This will install a factory image onto your device, over USB, through a Chrome/Edge web browser.</p>
+<p>This will install a factory image onto your device, over USB, through a web browser supporting WebSerial.</p>
 
-<h2>Step 1: Attach your device</h2>
+<h2>Step 1: Attach your device (optionally holding down BOOT button)</h2>
 
-<p>Plug in your LilyGo T-CAN485, LilyGo T-2CAN or Stark CMR board to your computer using a USB cable.</p>
+<p>Plug in your supported board to your computer using a USB cable.</p>
 
-<h2>Step 2: Hold down BOOT (optional)</h2>
-
-<p>Some devices require you to hold down the BOOT button during the following steps. If your device has no BOOT button, connect GND and pin 0 together instead.</p>
+<p>Some devices require you to hold down the BOOT button during the following steps. If your device has no BOOT button, connect GND and GPIO0 together instead.</p>
 
 <p>You can release BOOT once the device has started erasing/installing.</p>
 
-<h2>Step 3: Select an image to install</h2>
+<h2>Step 2: Select an image to install</h2>
 
 <p>Choose a release: <select id="release"><option value="">Choose...</option></select></p>
   
@@ -63,23 +72,23 @@ select {
 
 <div id="install" style="display: none">
 
-<h2>Step 4: Install!</h2>
+<h2>Step 3: Install!</h2>
 
 <p>Click the button below, and find your device's serial interface. Select 'Erase device' when asked.</p>
 
 <esp-web-install-button
 ></esp-web-install-button>
 
-<h2>Step 5: Configure WiFi</h2>
+<h2>Step 4: Configure WiFi</h2>
 
-<p>Your device will boot as an access point with a "BatteryEmulator..." SSID.</p>
+<p>Your device will boot as an access point with a "battery-emulator-..." SSID.</p>
 <ol>
-    <li>Connect to it over WiFi, password: 123456789</li>
+    <li>Connect to it over Wi-Fi, the factory-default password: 123456789</li>
     <li>Go to http://192.168.4.1/settings in your web browser</li>
-    <li>Update with your WiFi SSID and password</li>
+    <li>Visit the settings page, and update the network config with your local network WiFi SSID and password</li>
     <li>Go back to the main page and Reboot</li>
-    <li>Access it over your local WiFi network IP</li>
-    <li>Change the default AP password to something more secure</li>
+    <li>Access it over your local WiFi network IP address</li>
+    <li>Change the default AP password to something more secure. When the AP is running with the factory-default password, it is automatically disabled after 5 minutes.</li>
 </ol>
 
 </div>
