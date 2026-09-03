@@ -52,13 +52,11 @@ select {
   src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js?module"
 ></script>
 
-<h1>Battery Emulator Web Installer</h1>
-
-<p>This will install a factory image onto your device, over USB, through a web browser supporting WebSerial.</p>
+<p>This will install a Battery Emulator factory image onto your device, over USB, through a web browser supporting WebSerial.</p>
 
 <h2>Step 1: Attach your device (optionally holding down BOOT button)</h2>
 
-<p>Plug in your supported board to your computer using a USB cable.</p>
+<p>Plug in your <a href="https://dalathegreat.github.io/Battery-Emulator-Wiki/hardware/" target="_top">supported board</a> to your computer using a USB cable.</p>
 
 <p>Some devices require you to hold down the BOOT button during the following steps. If your device has no BOOT button, connect GND and GPIO0 together instead.</p>
 
@@ -84,8 +82,8 @@ select {
 <p>Your device will boot as an access point with a "battery-emulator-..." SSID.</p>
 <ol>
     <li>Connect to it over Wi-Fi, the factory-default password: 123456789</li>
-    <li>Go to http://192.168.4.1/settings in your web browser</li>
-    <li>Visit the settings page, and update the network config with your local network WiFi SSID and password</li>
+    <li>Access the web interface at http://192.168.4.1/ address in your web browser</li>
+    <li>Visit the Settings page, and update the network config with your local network WiFi SSID and password</li>
     <li>Go back to the main page and Reboot</li>
     <li>Access it over your local WiFi network IP address</li>
     <li>Change the default AP password to something more secure. When the AP is running with the factory-default password, it is automatically disabled after 5 minutes.</li>
