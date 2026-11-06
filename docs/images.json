@@ -1,0 +1,307 @@
+{
+ "v10.0.0": [
+  "BE_v10.0.0_LilygoT-2CAN.factory.bin",
+  "BE_v10.0.0_LilygoT-CAN485.factory.bin",
+  "BE_v10.0.0_StarkCMR.factory.bin"
+ ],
+ "v10.1.0": [
+  "BE_v10.1.0_LilygoT-2CAN.factory.bin",
+  "BE_v10.1.0_LilygoT-CAN485.factory.bin",
+  "BE_v10.1.0_StarkCMR.factory.bin"
+ ],
+ "v10.10.0": [
+  "BE_v10.10.0_LilygoT-2CAN.factory.bin",
+  "BE_v10.10.0_LilygoT-CAN485.factory.bin",
+  "BE_v10.10.0_StarkCMR.factory.bin",
+  "BE_v10.10.0_WaveshareESP32S3RS485CAN.factory.bin"
+ ],
+ "v10.10.1": [
+  "BE_v10.10.1_LilygoT-2CAN.factory.bin",
+  "BE_v10.10.1_LilygoT-CAN485.factory.bin",
+  "BE_v10.10.1_StarkCMR.factory.bin",
+  "BE_v10.10.1_WaveshareESP32S3RS485CAN.factory.bin"
+ ],
+ "v10.11.0": [
+  "BE_v10.11.0_LilygoT-2CAN.factory.bin",
+  "BE_v10.11.0_LilygoT-CAN485.factory.bin",
+  "BE_v10.11.0_StarkCMR.factory.bin",
+  "BE_v10.11.0_WaveshareESP32S3RS485CAN.factory.bin"
+ ],
+ "v10.12.0": [
+  "BE_v10.12.0_BECom_ES32S3.factory.bin",
+  "BE_v10.12.0_LilygoT-2CAN.factory.bin",
+  "BE_v10.12.0_LilygoT-CAN485.factory.bin",
+  "BE_v10.12.0_StarkCMR.factory.bin",
+  "BE_v10.12.0_WaveshareESP32S3RS485CAN.factory.bin"
+ ],
+ "v10.13.0": [
+  "BE_v10.13.0_BECom_ES32S3.factory.bin",
+  "BE_v10.13.0_LilygoT-2CAN.factory.bin",
+  "BE_v10.13.0_LilygoT-CAN485.factory.bin",
+  "BE_v10.13.0_StarkCMR.factory.bin",
+  "BE_v10.13.0_WaveshareESP32S3RS485CAN.factory.bin"
+ ],
+ "v10.2.0": [
+  "BE_v10.2.0_LilygoT-2CAN.factory.bin",
+  "BE_v10.2.0_LilygoT-CAN485.factory.bin",
+  "BE_v10.2.0_StarkCMR.factory.bin"
+ ],
+ "v10.3.0": [
+  "BE_v10.3.0_LilygoT-2CAN.factory.bin",
+  "BE_v10.3.0_LilygoT-CAN485.factory.bin",
+  "BE_v10.3.0_StarkCMR.factory.bin"
+ ],
+ "v10.4.0": [
+  "BE_v10.4.0_LilygoT-2CAN.factory.bin",
+  "BE_v10.4.0_LilygoT-CAN485.factory.bin",
+  "BE_v10.4.0_StarkCMR.factory.bin"
+ ],
+ "v10.5.0": [
+  "BE_v10.5.0_LilygoT-2CAN.factory.bin",
+  "BE_v10.5.0_LilygoT-CAN485.factory.bin",
+  "BE_v10.5.0_StarkCMR.factory.bin"
+ ],
+ "v10.6.0": [
+  "BE_v10.6.0_LilygoT-2CAN.factory.bin",
+  "BE_v10.6.0_LilygoT-CAN485.factory.bin",
+  "BE_v10.6.0_StarkCMR.factory.bin"
+ ],
+ "v10.7.0": [
+  "BE_v10.7.0_LilygoT-2CAN.factory.bin",
+  "BE_v10.7.0_LilygoT-CAN485.factory.bin",
+  "BE_v10.7.0_StarkCMR.factory.bin"
+ ],
+ "v10.8.0": [
+  "BE_v10.8.0_LilygoT-2CAN.factory.bin",
+  "BE_v10.8.0_LilygoT-CAN485.factory.bin",
+  "BE_v10.8.0_StarkCMR.factory.bin"
+ ],
+ "v10.9.0": [
+  "BE_v10.9.0_LilygoT-2CAN.factory.bin",
+  "BE_v10.9.0_LilygoT-CAN485.factory.bin",
+  "BE_v10.9.0_StarkCMR.factory.bin",
+  "BE_v10.9.0_Waveshare-ESP32-S3-RS485-CAN.factory.bin"
+ ],
+ "v11.0.0": [
+  "BE_v11.0.0_BECom_ES32S3.factory.bin",
+  "BE_v11.0.0_LilygoT-2CAN.factory.bin",
+  "BE_v11.0.0_LilygoT-CAN485.factory.bin",
+  "BE_v11.0.0_StarkCMR.factory.bin",
+  "BE_v11.0.0_WaveshareESP32S3RS485CAN.factory.bin"
+ ],
+ "v11.1.0": [
+  "BE_v11.1.0_BECom_ES32S3.factory.bin",
+  "BE_v11.1.0_LilygoT-2CAN.factory.bin",
+  "BE_v11.1.0_LilygoT-CAN485.factory.bin",
+  "BE_v11.1.0_StarkCMR.factory.bin",
+  "BE_v11.1.0_WaveshareESP32S3RS485CAN.factory.bin"
+ ],
+ "v12.0.0": [
+  "BE_v12.0.0_BEComES32S3.factory.bin",
+  "BE_v12.0.0_ESP32DevKitV1.factory.bin",
+  "BE_v12.0.0_LilygoT-2CAN.factory.bin",
+  "BE_v12.0.0_LilygoT-CAN485.factory.bin",
+  "BE_v12.0.0_StarkCMR.factory.bin",
+  "BE_v12.0.0_WaveshareESP32S3RS485CAN.factory.bin"
+ ],
+ "v12.1.0": [
+  "BE_v12.1.0_BEComES32S3.factory.bin",
+  "BE_v12.1.0_ESP32DevKitV1.factory.bin",
+  "BE_v12.1.0_LilygoT-2CAN.factory.bin",
+  "BE_v12.1.0_LilygoT-CAN485.factory.bin",
+  "BE_v12.1.0_StarkCMR.factory.bin",
+  "BE_v12.1.0_WaveshareESP32S3RS485CAN.factory.bin"
+ ],
+ "v12.2.0": [
+  "BE_v12.2.0_BEComES32S3.factory.bin",
+  "BE_v12.2.0_ESP32DevKitV1.factory.bin",
+  "BE_v12.2.0_LilygoT-2CAN.factory.bin",
+  "BE_v12.2.0_LilygoT-CAN485.factory.bin",
+  "BE_v12.2.0_StarkCMR.factory.bin",
+  "BE_v12.2.0_WaveshareESP32S3RS485CAN.factory.bin"
+ ],
+ "v12.3.0": [
+  "BE_v12.3.0_BEComES32S3.factory.bin",
+  "BE_v12.3.0_DFRobotEdge101.factory.bin",
+  "BE_v12.3.0_ESP32DevKitV1.factory.bin",
+  "BE_v12.3.0_LilygoT-2CAN.factory.bin",
+  "BE_v12.3.0_LilygoT-CAN485.factory.bin",
+  "BE_v12.3.0_StarkCMR.factory.bin",
+  "BE_v12.3.0_WaveshareESP32S3RS485CAN.factory.bin"
+ ],
+ "v12.4.0": [
+  "BE_v12.4.0_BEComES32S3.factory.bin",
+  "BE_v12.4.0_DFRobotEdge101.factory.bin",
+  "BE_v12.4.0_ESP32DevKitV1.factory.bin",
+  "BE_v12.4.0_LilygoT-2CAN.factory.bin",
+  "BE_v12.4.0_LilygoT-CAN485.factory.bin",
+  "BE_v12.4.0_StarkCMR.factory.bin",
+  "BE_v12.4.0_WaveshareESP32S3RS485CAN.factory.bin"
+ ],
+ "v12.5.0": [
+  "BE_v12.5.0_BEComES32S3.factory.bin",
+  "BE_v12.5.0_DFRobotEdge101.factory.bin",
+  "BE_v12.5.0_ESP32DevKitV1.factory.bin",
+  "BE_v12.5.0_LilygoT-2CAN.factory.bin",
+  "BE_v12.5.0_LilygoT-CAN485.factory.bin",
+  "BE_v12.5.0_StarkCMR.factory.bin",
+  "BE_v12.5.0_WaveshareESP32S3RS485CAN.factory.bin"
+ ],
+ "v12.6.0": [
+  "BE_v12.6.0_BEComES32S3.factory.bin",
+  "BE_v12.6.0_DFRobotEdge101.factory.bin",
+  "BE_v12.6.0_ESP32DevKitV1.factory.bin",
+  "BE_v12.6.0_LilygoT-2CAN.factory.bin",
+  "BE_v12.6.0_LilygoT-CAN485.factory.bin",
+  "BE_v12.6.0_StarkCMR.factory.bin",
+  "BE_v12.6.0_WaveshareESP32S3RS485CAN.factory.bin"
+ ],
+ "v13.0.0": [
+  "BE_v13.0.0_BEComES32S3.factory.bin",
+  "BE_v13.0.0_DFRobotEdge101.factory.bin",
+  "BE_v13.0.0_ESP32DevKitV1.factory.bin",
+  "BE_v13.0.0_LilygoT-2CAN.factory.bin",
+  "BE_v13.0.0_LilygoT-CAN485.factory.bin",
+  "BE_v13.0.0_StarkCMR.factory.bin",
+  "BE_v13.0.0_WaveshareESP32S3RS485CAN.factory.bin"
+ ],
+ "v13.0.1": [
+  "BE_v13.0.1_BEComES32S3.factory.bin",
+  "BE_v13.0.1_DFRobotEdge101.factory.bin",
+  "BE_v13.0.1_ESP32DevKitV1.factory.bin",
+  "BE_v13.0.1_LilygoT-2CAN.factory.bin",
+  "BE_v13.0.1_LilygoT-CAN485.factory.bin",
+  "BE_v13.0.1_StarkCMR.factory.bin",
+  "BE_v13.0.1_WaveshareESP32S3RS485CAN.factory.bin"
+ ],
+ "v13.1.0": [
+  "BE_v13.1.0_BEComES32S3.factory.bin",
+  "BE_v13.1.0_DFRobotEdge101.factory.bin",
+  "BE_v13.1.0_ESP32DevKitV1.factory.bin",
+  "BE_v13.1.0_LilygoT-2CAN.factory.bin",
+  "BE_v13.1.0_LilygoT-CAN485.factory.bin",
+  "BE_v13.1.0_StarkCMR.factory.bin",
+  "BE_v13.1.0_WaveshareESP32S3RS485CAN.factory.bin"
+ ],
+ "v13.2.0": [
+  "BE_v13.2.0_BEComES32S3.factory.bin",
+  "BE_v13.2.0_DFRobotEdge101.factory.bin",
+  "BE_v13.2.0_ESP32DevKitV1.factory.bin",
+  "BE_v13.2.0_LilygoT-2CAN.factory.bin",
+  "BE_v13.2.0_LilygoT-CAN485.factory.bin",
+  "BE_v13.2.0_StarkCMR.factory.bin",
+  "BE_v13.2.0_WaveshareESP32S3RS485CAN.factory.bin"
+ ],
+ "v13.3.0": [
+  "BE_v13.3.0_BEComES32S3.factory.bin",
+  "BE_v13.3.0_DFRobotEdge101.factory.bin",
+  "BE_v13.3.0_ESP32DevKitV1.factory.bin",
+  "BE_v13.3.0_LilygoT-2CAN.factory.bin",
+  "BE_v13.3.0_LilygoT-CAN485.factory.bin",
+  "BE_v13.3.0_StarkCMR.factory.bin",
+  "BE_v13.3.0_WaveshareESP32S3RS485CAN.factory.bin"
+ ],
+ "v13.4.0": [
+  "BE_v13.4.0_BEComES32S3.factory.bin",
+  "BE_v13.4.0_DFRobotEdge101.factory.bin",
+  "BE_v13.4.0_ESP32DevKitV1.factory.bin",
+  "BE_v13.4.0_LilygoT-2CAN.factory.bin",
+  "BE_v13.4.0_LilygoT-CAN485.factory.bin",
+  "BE_v13.4.0_StarkCMR.factory.bin",
+  "BE_v13.4.0_WaveshareESP32S3RS485CAN.factory.bin"
+ ],
+ "v13.5.0": [
+  "BE_v13.5.0_BEComES32S3.factory.bin",
+  "BE_v13.5.0_DFRobotEdge101.factory.bin",
+  "BE_v13.5.0_ESP32DevKitV1.factory.bin",
+  "BE_v13.5.0_LilygoT-2CAN.factory.bin",
+  "BE_v13.5.0_LilygoT-CAN485.factory.bin",
+  "BE_v13.5.0_StarkCMR.factory.bin",
+  "BE_v13.5.0_WaveshareESP32S3RS485CAN.factory.bin"
+ ],
+ "v9.0.0": [
+  "BE_v9.0.0_LilygoT-2CAN.factory.bin",
+  "BE_v9.0.0_LilygoT-CAN485.factory.bin",
+  "BE_v9.0.0_StarkCMR.factory.bin"
+ ],
+ "v9.1.0": [
+  "BE_v9.1.0_LilygoT-2CAN.factory.bin",
+  "BE_v9.1.0_LilygoT-CAN485.factory.bin",
+  "BE_v9.1.0_StarkCMR.factory.bin"
+ ],
+ "v9.1.1": [
+  "BE_v9.1.1_LilygoT-2CAN.factory.bin",
+  "BE_v9.1.1_LilygoT-CAN485.factory.bin",
+  "BE_v9.1.1_StarkCMR.factory.bin"
+ ],
+ "v9.1.2": [
+  "BE_v9.1.2_LilygoT-2CAN.factory.bin",
+  "BE_v9.1.2_LilygoT-CAN485.factory.bin",
+  "BE_v9.1.2_StarkCMR.factory.bin"
+ ],
+ "v9.1.3": [
+  "BE_v9.1.3_LilygoT-2CAN.factory.bin",
+  "BE_v9.1.3_LilygoT-CAN485.factory.bin",
+  "BE_v9.1.3_StarkCMR.factory.bin"
+ ],
+ "v9.1.4": [
+  "BE_v9.1.4_LilygoT-2CAN.factory.bin",
+  "BE_v9.1.4_LilygoT-CAN485.factory.bin",
+  "BE_v9.1.4_StarkCMR.factory.bin"
+ ],
+ "v9.2.0": [
+  "BE_v9.2.0_LilygoT-2CAN.factory.bin",
+  "BE_v9.2.0_LilygoT-CAN485.factory.bin",
+  "BE_v9.2.0_StarkCMR.factory.bin"
+ ],
+ "v9.2.1": [
+  "BE_v9.2.1_LilygoT-2CAN.factory.bin",
+  "BE_v9.2.1_LilygoT-CAN485.factory.bin",
+  "BE_v9.2.1_StarkCMR.factory.bin"
+ ],
+ "v9.2.2": [
+  "BE_v9.2.2_LilygoT-2CAN.factory.bin",
+  "BE_v9.2.2_LilygoT-CAN485.factory.bin",
+  "BE_v9.2.2_StarkCMR.factory.bin"
+ ],
+ "v9.2.3": [
+  "BE_v9.2.3_LilygoT-2CAN.factory.bin",
+  "BE_v9.2.3_LilygoT-CAN485.factory.bin",
+  "BE_v9.2.3_StarkCMR.factory.bin"
+ ],
+ "v9.2.4": [
+  "BE_v9.2.4_LilygoT-2CAN.factory.bin",
+  "BE_v9.2.4_LilygoT-CAN485.factory.bin",
+  "BE_v9.2.4_StarkCMR.factory.bin"
+ ],
+ "v9.3.0": [
+  "BE_v9.3.0_LilygoT-2CAN.factory.bin",
+  "BE_v9.3.0_LilygoT-CAN485.factory.bin",
+  "BE_v9.3.0_StarkCMR.factory.bin"
+ ],
+ "v9.3.1": [
+  "BE_v9.3.1_LilygoT-2CAN.factory.bin",
+  "BE_v9.3.1_LilygoT-CAN485.factory.bin",
+  "BE_v9.3.1_StarkCMR.factory.bin"
+ ],
+ "v9.3.2": [
+  "BE_v9.3.2_LilygoT-2CAN.factory.bin",
+  "BE_v9.3.2_LilygoT-CAN485.factory.bin",
+  "BE_v9.3.2_StarkCMR.factory.bin"
+ ],
+ "v9.3.3": [
+  "BE_v9.3.3_LilygoT-2CAN.factory.bin",
+  "BE_v9.3.3_LilygoT-CAN485.factory.bin",
+  "BE_v9.3.3_StarkCMR.factory.bin"
+ ],
+ "v9.3.4": [
+  "BE_v9.3.4_LilygoT-2CAN.factory.bin",
+  "BE_v9.3.4_LilygoT-CAN485.factory.bin",
+  "BE_v9.3.4_StarkCMR.factory.bin"
+ ],
+ "v9.3.5": [
+  "BE_v9.3.5_LilygoT-2CAN.factory.bin",
+  "BE_v9.3.5_LilygoT-CAN485.factory.bin",
+  "BE_v9.3.5_StarkCMR.factory.bin"
+ ]
+}
