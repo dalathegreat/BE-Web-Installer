@@ -68,11 +68,23 @@ select {
   
 <p>Choose an image: <select id="image"><option></option></select></p>
 
+<div id="config-row" style="display: none">
+
+<p>Choose a board configuration: <select id="config"><option></option></select></p>
+
+<p id="config-file-row" style="display: none"><input type="file" id="config-file" accept=".json,application/json"></p>
+
+<p id="config-status"></p>
+
+</div>
+
 <div id="install" style="display: none">
 
 <h2>Step 3: Install!</h2>
 
 <p>Click the button below, and find your device's serial interface. Select 'Erase device' when asked.</p>
+
+<p id="config-install-note" style="display: none">The board configuration is written together with the firmware, and replaces any configuration already stored on the board. The emulator starts up configured for that board; the Hardware configuration page of its web interface shows what it loaded.</p>
 
 <esp-web-install-button
 ></esp-web-install-button>
@@ -93,6 +105,19 @@ select {
 
 <script>
 var images_by_version = {};
+var configs_by_dir = {};
+
+const REPO_RAW = "https://raw.githubusercontent.com/dalathegreat/BE-Web-Installer/refs/heads/main/";
+
+// Images that take a board configuration, and where the installer writes it.
+// The offset and size are those of the "spiffs" partition in default_16MB.csv,
+// the partition table the unified_esp32s3 build uses. The firmware reads its
+// configuration from /board.json on that partition.
+const CONFIGURABLE_IMAGES = [
+    { match: "UnifiedESP32-S3", dir: "unified_esp32s3", mcu: "esp32s3", offset: 0xC90000, size: 0x360000 },
+];
+// The firmware rejects anything larger (BOARD_CONFIG_MAX_BYTES in board_config.h).
+const BOARD_CONFIG_MAX_BYTES = 16384;
 
 var sel = document.getElementById('release');
 fetch('https://api.github.com/repos/dalathegreat/BE-Web-Installer/git/trees/main?recursive=1').then(r=>r.json()).then(r=>{
@@ -106,6 +131,13 @@ fetch('https://api.github.com/repos/dalathegreat/BE-Web-Installer/git/trees/main
                 'name': bits[2],
                 'path': t.path,
             });
+        }
+        // configs/<dir>/<board>.json, leaving out the schema they point to
+        if(bits.length==3 && bits[0]=="configs" && bits[2].endsWith('.json') && !bits[2].includes('schema')) {
+            if(!configs_by_dir[bits[1]]) {
+                configs_by_dir[bits[1]] = [];
+            }
+            configs_by_dir[bits[1]].push(t.path);
         }
     });
     console.log(images_by_version);
@@ -150,18 +182,124 @@ sel.addEventListener('change', function() {
         opt.textContent = file.name;
         image_sel.appendChild(opt);
     });
+    state.generation++;  // drop anything still loading for the previous image
+    showConfigRow(false);
+    showInstall(false);
 });
 
-    
-var img = document.getElementById('image');
-img.addEventListener('change', function() {
-    // var script = document.createElement("script");
-    // script.src = "https://github.com/dalathegreat/Battery-Emulator/releases/download/v0.0.2test/binary.js?" + (new Date()).getTime();
-    // document.body.appendChild(script);
-    var uri = "https://raw.githubusercontent.com/dalathegreat/BE-Web-Installer/refs/heads/main/" + img.value;
+// ── Board configuration ──────────────────────────────────────────────────────
 
-    const ESP32_S3_BOARDS = ["2CAN", "S3"];
-    const chipFamily = ESP32_S3_BOARDS.some(id => uri.includes(id)) ? "ESP32-S3" : "ESP32";
+var configSel = document.getElementById('config');
+var configFile = document.getElementById('config-file');
+var configStatus = document.getElementById('config-status');
+
+// What the next manifest is built from. A change to any of it bumps generation,
+// so a result that arrives after the user picked something else is dropped.
+var state = { uri: '', chipFamily: '', target: null, config: null, generation: 0 };
+var configCache = {};  // path -> { name, bytes }
+var partUrl = null;
+
+function showConfigRow(show) {
+    document.getElementById('config-row').style.display = show ? 'block' : 'none';
+    if(!show) {
+        document.getElementById('config-file-row').style.display = 'none';
+        configStatus.textContent = '';
+    }
+}
+
+function showInstall(show) {
+    document.getElementById('install').style.display = show ? 'block' : 'none';
+}
+
+function addOption(select, value, text) {
+    var opt = document.createElement('option');
+    opt.value = value;
+    opt.textContent = text;
+    select.appendChild(opt);
+}
+
+// The checks the firmware would otherwise only report after flashing. Pins and
+// ports are still validated on the board, which shows its findings on the
+// Hardware configuration page.
+function parseConfig(bytes, target) {
+    if(bytes.length > BOARD_CONFIG_MAX_BYTES) {
+        throw new Error('The file is ' + bytes.length + ' bytes; the firmware accepts at most ' + BOARD_CONFIG_MAX_BYTES + '.');
+    }
+    var doc;
+    try {
+        doc = JSON.parse(new TextDecoder('utf-8', { fatal: true }).decode(bytes));
+    } catch(e) {
+        throw new Error('The file is not valid JSON: ' + e.message);
+    }
+    if(!doc || doc.config_version !== 1 || !doc.board || !Array.isArray(doc.ports)) {
+        throw new Error('This is not a board configuration file (config_version 1, with board and ports).');
+    }
+    if(doc.board.mcu !== target.mcu) {
+        throw new Error('This configuration is for ' + doc.board.mcu + ', not ' + target.mcu + '.');
+    }
+    return typeof doc.board.name === 'string' && doc.board.name ? doc.board.name : 'Unnamed board';
+}
+
+async function loadConfig(path, target) {
+    if(!configCache[path]) {
+        var r = await fetch(REPO_RAW + path);
+        if(!r.ok) {
+            throw new Error('Downloading ' + path + ' failed: ' + r.status);
+        }
+        var bytes = new Uint8Array(await r.arrayBuffer());
+        configCache[path] = { name: parseConfig(bytes, target), bytes: bytes };
+    }
+    return configCache[path];
+}
+
+async function fillConfigs(target, generation) {
+    configSel.innerHTML = '';
+    addOption(configSel, '', 'Loading...');
+    configSel.disabled = true;
+    var paths = configs_by_dir[target.dir] || [];
+    var loaded = await Promise.all(paths.map(function(path) {
+        return loadConfig(path, target).then(function(c) { return { path: path, name: c.name }; }, function(e) {
+            console.error(e);
+            return null;
+        });
+    }));
+    if(generation !== state.generation) return;
+
+    configSel.innerHTML = '';
+    addOption(configSel, '', 'Select...');
+    addOption(configSel, 'none', 'None, configure later in the web UI');
+    loaded.filter(Boolean).sort(function(a, b) { return a.name.localeCompare(b.name); }).forEach(function(c) {
+        addOption(configSel, c.path, c.name);
+    });
+    addOption(configSel, 'custom', 'Custom configuration file from disk...');
+    configSel.disabled = false;
+    if(loaded.some(function(c) { return !c; })) {
+        configStatus.textContent = 'Some board configurations could not be loaded; see the browser console.';
+    }
+}
+
+async function updateManifest() {
+    var generation = ++state.generation;
+    var parts = [ { "path": state.uri, "offset": 0 } ];
+
+    if(state.config) {
+        configStatus.textContent = 'Preparing the configuration for ' + state.config.name + '...';
+        try {
+            var lfs = await import('./littlefs/lfs-image.js');
+            var image = await lfs.buildLittlefsImage('board.json', state.config.bytes, state.target.size);
+            if(generation !== state.generation) return;
+            if(partUrl) URL.revokeObjectURL(partUrl);
+            partUrl = URL.createObjectURL(new Blob([image], { type: 'application/octet-stream' }));
+            parts.push({ "path": partUrl, "offset": state.target.offset });
+            configStatus.textContent = 'The configuration for ' + state.config.name + ' will be installed with the firmware.';
+        } catch(e) {
+            if(generation !== state.generation) return;
+            console.error(e);
+            configStatus.textContent = 'Could not prepare the configuration: ' + e.message;
+            showInstall(false);
+            return;
+        }
+    }
 
     const manifest = {
         "name": "Battery Emulator",
@@ -169,11 +307,9 @@ img.addEventListener('change', function() {
         "new_install_prompt_erase": true,
         "builds": [
             {
-                "chipFamily": chipFamily,
+                "chipFamily": state.chipFamily,
                 "improv": false,
-                "parts": [
-                    { "path": uri, "offset": 0}
-                ]
+                "parts": parts
             }
         ]
     };
@@ -181,7 +317,83 @@ img.addEventListener('change', function() {
     console.log(json);
     const blob = new Blob([json], {type: "application/json"});
     document.querySelector("esp-web-install-button").manifest = URL.createObjectURL(blob);
-    document.getElementById("install").style.display = 'block';
+    document.getElementById("config-install-note").style.display = state.config ? 'block' : 'none';
+    showInstall(true);
+}
+
+configSel.addEventListener('change', async function() {
+    var generation = ++state.generation;
+    state.config = null;
+    showInstall(false);
+    configStatus.textContent = '';
+    document.getElementById('config-file-row').style.display = configSel.value == 'custom' ? 'block' : 'none';
+
+    if(configSel.value == '') return;
+    if(configSel.value == 'none') {
+        updateManifest();
+        return;
+    }
+    if(configSel.value == 'custom') {
+        configFile.value = '';
+        return;
+    }
+    try {
+        var c = await loadConfig(configSel.value, state.target);
+        if(generation !== state.generation) return;
+        state.config = c;
+        updateManifest();
+    } catch(e) {
+        if(generation !== state.generation) return;
+        configStatus.textContent = e.message;
+    }
+});
+
+configFile.addEventListener('change', async function() {
+    var generation = ++state.generation;
+    state.config = null;
+    showInstall(false);
+    configStatus.textContent = '';
+    var file = configFile.files[0];
+    if(!file) return;
+    try {
+        var bytes = new Uint8Array(await file.arrayBuffer());
+        var name = parseConfig(bytes, state.target);
+        if(generation !== state.generation) return;
+        state.config = { name: name + ' (' + file.name + ')', bytes: bytes };
+        updateManifest();
+    } catch(e) {
+        if(generation !== state.generation) return;
+        configStatus.textContent = e.message;
+    }
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+
+var img = document.getElementById('image');
+img.addEventListener('change', function() {
+    // var script = document.createElement("script");
+    // script.src = "https://github.com/dalathegreat/Battery-Emulator/releases/download/v0.0.2test/binary.js?" + (new Date()).getTime();
+    // document.body.appendChild(script);
+    var uri = REPO_RAW + img.value;
+
+    const ESP32_S3_BOARDS = ["2CAN", "S3"];
+    const chipFamily = ESP32_S3_BOARDS.some(id => uri.includes(id)) ? "ESP32-S3" : "ESP32";
+
+    state.uri = uri;
+    state.chipFamily = chipFamily;
+    state.config = null;
+    state.target = img.value ? CONFIGURABLE_IMAGES.find(t => img.value.includes(t.match)) || null : null;
+    var generation = ++state.generation;
+
+    showInstall(false);
+    showConfigRow(!!state.target);
+    if(!img.value) return;
+    if(state.target) {
+        // The install button appears once a configuration (or None) is picked.
+        fillConfigs(state.target, generation);
+    } else {
+        updateManifest();
+    }
 });
   
 </script>
