@@ -107,7 +107,25 @@ select {
 var images_by_version = {};
 var configs_by_dir = {};
 
-const REPO_RAW = "https://raw.githubusercontent.com/dalathegreat/BE-Web-Installer/refs/heads/main/";
+// Where the images and board configurations come from: this repository's main
+// branch. A copy published to GitHub Pages from a fork (owner.github.io/repo/)
+// reads that fork instead, and there ?branch=name picks the branch, so a change
+// can be tried on real hardware before it is merged. The official page always
+// reads dalathegreat/BE-Web-Installer main, whatever the link says.
+const SOURCE = (function() {
+    var source = { repo: "dalathegreat/BE-Web-Installer", branch: "main" };
+    var host = location.hostname.match(/^([A-Za-z0-9-]+)\.github\.io$/);
+    var path = location.pathname.match(/^\/([A-Za-z0-9._-]+)\//);
+    if(host && path && host[1].toLowerCase() != "dalathegreat") {
+        source.repo = host[1] + "/" + path[1];
+        var branch = new URLSearchParams(location.search).get("branch");
+        if(branch && /^[A-Za-z0-9._\/-]+$/.test(branch)) {
+            source.branch = branch;
+        }
+    }
+    return source;
+})();
+const REPO_RAW = "https://raw.githubusercontent.com/" + SOURCE.repo + "/refs/heads/" + SOURCE.branch + "/";
 
 // Images that take a board configuration, and where the installer writes it.
 // The offset and size are those of the "spiffs" partition in default_16MB.csv,
@@ -120,7 +138,7 @@ const CONFIGURABLE_IMAGES = [
 const BOARD_CONFIG_MAX_BYTES = 16384;
 
 var sel = document.getElementById('release');
-fetch('https://api.github.com/repos/dalathegreat/BE-Web-Installer/git/trees/main?recursive=1').then(r=>r.json()).then(r=>{
+fetch('https://api.github.com/repos/' + SOURCE.repo + '/git/trees/' + SOURCE.branch + '?recursive=1').then(r=>r.json()).then(r=>{
     r.tree.forEach(t=>{
         var bits = t.path.split('/');
         if(bits.length==3 && bits[0]=="images" && bits[2].endsWith('.factory.bin')) {
